@@ -1,0 +1,15 @@
+{
+  "manifest_version":2,
+  "name": "DemoApp",
+  "description": "Demo",
+  "version": "0.1",
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+  "permissions": [
+    "unlimitedStorage"
+  ]
+}
+
