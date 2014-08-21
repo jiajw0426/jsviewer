@@ -1,0 +1,5 @@
+.container .syntax-container .toolbar{display:none}
+.syntax-container.syntax-theme-base div.fixed.syntax .numbers-column div.ln1{
+    padding-left:0px !important;
+
+}

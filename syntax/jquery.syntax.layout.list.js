@@ -14,7 +14,7 @@ Syntax.layouts.list = function(options, code, container) {
 	// Source code
 	code.children().each(function() {
 		var li = document.createElement('li');
-		li.className = "line ln" + line
+		li.className = "line ln" +  ((line+"").length);
 		
 		if (line % 2) {
 			li.className += " alt";

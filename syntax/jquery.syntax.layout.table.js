@@ -13,7 +13,8 @@ Syntax.layouts.table = function(options, code, container) {
 	// Source code
 	code.children().each(function() {
 		tr = document.createElement('tr');
-		tr.className = "line ln" + line;
+  
+		tr.className = "line ln" + ((line+"").length);
 		
 		if (line % 2) {
 			tr.className += " alt";

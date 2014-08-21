@@ -21,7 +21,7 @@ Syntax.layouts.fixed = function(options, code, container) {
 	// Source code
 	code.children().each(function() {
 		var lineNumber = document.createElement('div');
-		lineNumber.className = "line ln" + line
+		lineNumber.className = "line ln" + ((line+"").length);
 		lineNumber.innerHTML = line;
 		numbersColumn.append(lineNumber);
 		
