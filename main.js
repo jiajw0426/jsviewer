@@ -1,4 +1,4 @@
-FileTypes={
+var FileTypes={
     "js":"javascript",
     "javascript":"javascript",
     "xml":"xml",
@@ -19,15 +19,23 @@ $(document).ready(
                 var files = e.dataTransfer.files;
                 if (files === null || files === undefined) {
                     alert("Error!")
-                    return false;
+    return false;
                 }
 
-               
-               var reader = new FileReader();
-                 reader.readAsText(e.dataTransfer.files[0]);
-                 reader.onload =function(e){
-                   parse(this.result);
-                 }
+
+                var reader = new FileReader();
+                var file=e.dataTransfer.files[0];
+                var name=file.name;
+                var type="javascript";
+                var index=name.lastIndexOf(".");
+                if(index!=-1){
+                    type=name.substring(index+1);
+                }
+                
+                reader.readAsText(file);
+                reader.onload =function(e){
+                    parse(this.result,FileTypes[type]);
+                }
                 e.preventDefault();
                 return false;
             }
@@ -47,16 +55,16 @@ $(document).ready(
 
             function docDrop(e) {
                 e.preventDefault();
-                 $("#dragfile").modal("hide");
+                $("#dragfile").modal("hide");
                 return false;
             }
 
             function docEnter(e) {
                 $("#dragfile").modal("show").css({
-               "margin-top":"100px" 
-              });
-                    
-                    ;
+                    "margin-top":"100px" 
+                });
+
+                ;
                 e.preventDefault();
                 return false;
             }
