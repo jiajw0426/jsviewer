@@ -1,5 +1,35 @@
 .container .syntax-container .toolbar{display:none}
-.syntax-container.syntax-theme-base div.fixed.syntax .numbers-column div.ln1{
+#dragAerea{
+    height:400px;
+    padding-top:160px;
+    border-style: dashed;
+   }
+#dragfile .modal-content{
+     opacity: 0.5;
+}
+#maincontainer .syntax-container.syntax-theme-base div.fixed.syntax .numbers-column{
+    padding-left:2px !important;
+
+}
+#maincontainer .syntax-container.syntax-theme-base div.fixed.syntax .numbers-column div.ln2{
+    padding-left:0px !important;
+
+}
+
+#maincontainer .syntax-container.syntax-theme-base div.fixed.syntax .numbers-column div.ln1{
+    padding-left:0px !important;
+
+}
+
+#maincontainer .syntax-container.syntax-theme-base div.fixed.syntax .numbers-column div.ln3{
+    padding-left:0px !important;
+
+}
+#maincontainer .syntax-container.syntax-theme-base div.fixed.syntax .numbers-column div.ln4{
+    padding-left:0px !important;
+
+}
+#maincontainer .syntax-container.syntax-theme-base div.fixed.syntax .numbers-column div.ln5{
     padding-left:0px !important;
 
 }
