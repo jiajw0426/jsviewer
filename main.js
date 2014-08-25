@@ -12,9 +12,23 @@ var FileTypes={
     "version":1.0
 
 }
-$(document).ready(
-        function(){
 
+$(document).ready(
+
+
+        function(){
+            $("#themedropdwom").find("a").bind("click",function(){
+                var style=$(this).attr("data-style");
+                $.cookie("themestyle",style);
+                var clazz="syntax-container"
+                var baseStyles=Syntax.themes[style] ;
+                for(var i=0;i<baseStyles.length;i++){
+                    clazz+=" syntax-theme-"+baseStyles[i];
+                }
+                clazz+=" syntax-theme-"+style;
+                $(".syntax-container").removeClass().addClass(clazz);
+
+            });
             function drop(e) {
                 var files = e.dataTransfer.files;
                 if (files === null || files === undefined) {
@@ -31,7 +45,7 @@ $(document).ready(
                 if(index!=-1){
                     type=name.substring(index+1);
                 }
-                
+
                 reader.readAsText(file);
                 reader.onload =function(e){
                     parse(this.result,FileTypes[type]);
@@ -88,15 +102,56 @@ function locate(where){
     }
 }
 function parse(text,type){
+    var theme=$.cookie('themestyle')||"bright";
+    $("#carousel").hide();
     var type=type||"javascript";
     var mainContainer=$("#maincontainer");
     var syntaxContainer= $(".syntax-container",mainContainer).remove();
     $("<pre>").appendTo(mainContainer).addClass("syntax brush-"+type).text(text);
     $("#myModal").modal("hide");
-    jQuery.syntax({theme: 'paper', blockLayout: 'fixed'});
+    jQuery.syntax({theme: theme, blockLayout: 'fixed'});
 
 }
 
+
+jQuery.cookie = function(name, value, options) {
+    if (typeof value != 'undefined') { // name and value given, set cookie
+        options = options || {};
+        if (value === null) {
+            value = '';
+            options.expires = -1;
+        }
+        var expires = '';
+        if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+            var date;
+            if (typeof options.expires == 'number') {
+                date = new Date();
+                date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
+            } else {
+                date = options.expires;
+            }
+            expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
+        }
+        var path = options.path ? '; path=' + options.path : '';
+        var domain = options.domain ? '; domain=' + options.domain : '';
+        var secure = options.secure ? '; secure' : '';
+        document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+    } else { // only name given, get cookie
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+};
 
 
 

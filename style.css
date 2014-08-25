@@ -7,6 +7,30 @@
 #dragfile .modal-content{
      opacity: 0.5;
 }
+
+#carousel .carousel-control.left{
+    background-image:none;
+}
+
+#carousel .carousel-indicators li{
+    border-color: #000;
+}
+#carousel .glyphicon.glyphicon-chevron-left{
+    color:grey;
+}
+
+#carousel .glyphicon.glyphicon-chevron-right{
+    color:grey;
+}
+
+
+#carousel .carousel-indicators .active{
+    background-color:#000;
+}
+
+#carousel .carousel-control.right{
+    background-image:none;
+}
 #maincontainer .syntax-container.syntax-theme-base div.fixed.syntax .numbers-column{
     padding-left:2px !important;
 
