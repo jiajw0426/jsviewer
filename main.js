@@ -22,11 +22,11 @@ $(document).ready(
                 $.cookie("themestyle",style);
                 var clazz="syntax-container"
                 var baseStyles=Syntax.themes[style] ;
-                for(var i=0;i<baseStyles.length;i++){
-                    clazz+=" syntax-theme-"+baseStyles[i];
-                }
-                clazz+=" syntax-theme-"+style;
-                $(".syntax-container").removeClass().addClass(clazz);
+            for(var i=0;i<baseStyles.length;i++){
+                clazz+=" syntax-theme-"+baseStyles[i];
+            }
+            clazz+=" syntax-theme-"+style;
+            $(".syntax-container").removeClass().addClass(clazz);
 
             });
             function drop(e) {
@@ -39,18 +39,31 @@ $(document).ready(
 
                 var reader = new FileReader();
                 var file=e.dataTransfer.files[0];
-                var name=file.name;
-                var type="javascript";
-                var index=name.lastIndexOf(".");
-                if(index!=-1){
-                    type=name.substring(index+1);
-                }
+                try{
+                    var name=file.name;
+                    var type="javascript";
+                    var index=name.lastIndexOf(".");
+                    if(index!=-1){
+                        type=name.substring(index+1);
+                    }
+                    if("class"==type){
 
-                reader.readAsText(file);
-                reader.onload =function(e){
-                    parse(this.result,FileTypes[type]);
+                        reader.onload =function(e){
+                           //alert(this.result.byteLength);
+                        }
+                        reader.readAsArrayBuffer(file);
+                        e.preventDefault();
+                    }else{
+
+                        reader.onload =function(e){
+                            parse(this.result,FileTypes[type]);
+                        }
+                        reader.readAsText(file);
+                        e.preventDefault();
+                    }
+                }catch(e1){
+                    $("#dragfile").modal("hide");
                 }
-                e.preventDefault();
                 return false;
             }
 
@@ -69,16 +82,19 @@ $(document).ready(
 
             function docDrop(e) {
                 e.preventDefault();
-                $("#dragfile").modal("hide");
+                //$("#dragfile").modal("hide");
+                $("#dragmsg").hide();
+                $("#processMsg").show();
+
                 return false;
             }
 
             function docEnter(e) {
+                $("#dragmsg").show();
+                $("#processMsg").hide();
                 $("#dragfile").modal("show").css({
                     "margin-top":"100px" 
                 });
-
-                ;
                 e.preventDefault();
                 return false;
             }
@@ -95,10 +111,22 @@ $(document).ready(
             $("#dragAerea").bind('dragenter', dragEnter).bind('dragover', dragOver).bind('dragleave', dragLeave).get(0).addEventListener("drop", drop, false);
         }
 );
-function locate(where){
+
+var locattions=[];
+function locate(where,from){
     var target=$(where);
     if(target.size()>0){
         $(document).scrollTop(target.position().top);
+        if(from){
+            locattions.push("#"+from);
+        }
+
+    }
+}
+function back(){
+    var where=locattions.pop();
+    if(where){
+        locate(where);
     }
 }
 function parse(text,type){
@@ -107,9 +135,14 @@ function parse(text,type){
     var type=type||"javascript";
     var mainContainer=$("#maincontainer");
     var syntaxContainer= $(".syntax-container",mainContainer).remove();
-    $("<pre>").appendTo(mainContainer).addClass("syntax brush-"+type).text(text);
+    $("<pre>").appendTo(mainContainer).addClass("syntax brush-"+type).text(text).hide();
     $("#myModal").modal("hide");
-    jQuery.syntax({theme: theme, blockLayout: 'fixed'});
+
+    jQuery.syntax({theme: theme, blockLayout: 'fixed'},function(options, html, container){
+        $("#dragfile").modal("hide");
+        return html;
+    });
+
 
 }
 

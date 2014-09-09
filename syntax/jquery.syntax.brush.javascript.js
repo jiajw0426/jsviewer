@@ -3,7 +3,7 @@
 //	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
-
+var uuidindex=0;
 Syntax.register('javascript', function(brush) {
 	var keywords = ["function", "break", "case", "catch", "continue", "default", "delete", "do", "else", "for", "if", "in", "instanceof", "new", "return", "super", "switch", "throw", "true", "try", "typeof", "var", "while", "with", "prototype"];
 	
@@ -87,7 +87,9 @@ Syntax.register('javascript', function(brush) {
             element.appendChild(document.createTextNode(result[1]));
 
              var funspan = document.createElement('a');
-             funspan.href='javascript:locate("#'+'fun_'+result[2]+'")';
+             var id=uuidindex++;
+             funspan.id=id;
+             funspan.href='javascript:locate("#'+'fun_'+result[2]+'","'+id+'")';
               funspan.className="function"
              funspan.innerText=result[2];
              element.appendChild(funspan);
@@ -109,8 +111,11 @@ Syntax.register('javascript', function(brush) {
                    return  text;
             }
              element.innerText="";
+             
              var funspan = document.createElement('a');
-             funspan.href='javascript:locate("#'+'fun_'+result[1]+'")';
+             var id=uuidindex++;
+             funspan.id=id;
+             funspan.href='javascript:locate("#'+'fun_'+result[1]+'","'+id+'")';
               funspan.className="function"
              funspan.innerText=result[1];
              element.appendChild(funspan);

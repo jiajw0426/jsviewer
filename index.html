@@ -29,16 +29,11 @@
                     <ul class="nav navbar-nav">
                         <li><a  data-toggle="modal" href="#myModal">Open</a></li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
+            
 
 
-                    <ul class="nav navbar-nav  navbar-right">
-                          <li><a href="#">About</a></li>
+                    <ul class="nav navbar-nav  navbar-left">
+                       
                         <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Theme <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="themedropdwom" role="menu">
@@ -48,7 +43,16 @@
                             <li><a href="#" data-style="grey">Grey</a></li>
                         </ul>
                         </li>
+                        <li><a  href="javascript:back()">Back</a></li>
+                        <li><a href="#">About</a></li>
                     </ul>
+
+                            <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
 
                 </div><!--/.nav-collapse -->
             </div>
@@ -80,12 +84,14 @@
                         <div class="modal-content">
 
                             <div class="modal-body" id="dragAerea">
-                                <H2> Please drag your file here</H2>
+                                <H2 id="dragmsg"> Please drag your file here</H2>
+                                 <H2 id="processMsg"> Please waite while processing.....</H2>
                             </div>
 
                         </div>
                     </div>
                 </div>
+            
 
                 <div id="carousel" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
